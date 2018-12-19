@@ -1,5 +1,7 @@
 <?php
 
+use App\Events\ChatMessage;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,4 +15,12 @@
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::post('/post', function () {
+    event(new ChatMessage(request('message')));
+
+    return [
+        'data' => request('message')
+    ];
 });
