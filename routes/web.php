@@ -1,6 +1,7 @@
 <?php
 
 use App\Events\ChatMessage;
+use App\Events\ItemAdded;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,3 +25,16 @@ Route::post('/post', function () {
         'data' => request('message')
     ];
 });
+
+Route::post('/add-item', function () {
+    $item = App\Item::find(1); // example data.
+    event(new ItemAdded($item));
+
+    return [
+        'data' => $item,
+    ];
+});
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

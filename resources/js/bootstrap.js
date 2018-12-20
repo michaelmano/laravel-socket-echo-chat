@@ -50,6 +50,17 @@ if (token) {
 if (typeof io !== 'undefined') {
     window.Echo = new Echo({
         broadcaster: 'socket.io',
-        host: window.location.hostname,
+        host: window.location.hostname + ':6001',
+        encrypted: true,
     });
 }
+
+window.Echo.connector.socket.on('connect', function(){
+    console.log('connected', window.Echo.socketId());
+});
+window.Echo.connector.socket.on('disconnect', function(){
+    console.log('disconnected');
+});
+window.Echo.connector.socket.on('reconnecting', function(attemptNumber){
+    console.log('reconnecting', attemptNumber);
+});

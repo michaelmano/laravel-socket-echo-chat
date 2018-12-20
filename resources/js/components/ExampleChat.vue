@@ -33,11 +33,13 @@
          methods: {
              postMessage() {
                  axios.post('/post', {message: this.text}).then(({data}) => {
-                     console.log(data)
                      this.messages.push(this.text);
                      this.text = '';
                  });
              },
+             addItem() {
+                 axios.post('/add-item');
+             }
          },
          created() {
              Echo.channel('chat').listen('ChatMessage', ({message}) => {
